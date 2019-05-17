@@ -1,5 +1,7 @@
+import { Credentials } from './../models/user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { User } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +10,12 @@ export class AuthService {
 
   constructor(private fireAuth: AngularFireAuth) { }
 
-  user(): any {
+  get user(): User | null {
+    return this.fireAuth.auth.currentUser;
   }
 
-  login(): any {
-
+  login({email, password}: Credentials) {
+    return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
   register(): any {
