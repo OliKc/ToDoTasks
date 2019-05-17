@@ -1,7 +1,7 @@
-import { Credentials } from './../models/user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from 'firebase';
+import { Credentials } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
