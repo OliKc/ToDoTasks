@@ -9,7 +9,7 @@ import { Task } from '../models/task';
 })
 export class AddTaskComponent implements OnInit {
 
-  newTaskName: string;
+  newTaskContent: string;
 
   constructor(private tasksService: TasksService) { }
 
@@ -17,10 +17,11 @@ export class AddTaskComponent implements OnInit {
   }
 
   add() {
-    if (this.newTaskName) {
-      const newTask: Task = ({name: this.newTaskName, created: new Date()});
+    if (this.newTaskContent) {
+      const newTask: Task = ({content: this.newTaskContent, created: new Date()});
       this.tasksService.add(newTask);
-      this.newTaskName = '';
+      this.newTaskContent = '';
+      console.log(newTask);
     }
   }
 

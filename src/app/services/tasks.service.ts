@@ -9,21 +9,21 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 })
 export class TasksService {
 
-  tasks$: AngularFireList<Task[]> = null;
+  tasks$: AngularFireList<Task> = null;
   tasks: Array<Task> = [];
 
   constructor(private db: AngularFireDatabase, private auth: AuthService) { }
 
-  getTaskList(): AngularFireList<Task[]> {
-    if (!this.auth.user)
-    return;
-
+  getTaskList(): AngularFireList<Task> {
+    if (!this.auth.user) {
+      return;
+    }
     this.tasks$ = this.db.list(`Tasks/${this.auth.user}`);
     return this.tasks$;
   }
 
   add(task: Task) {
-
+    this.tasks$.push(task);
   }
 
   remove(task: Task) {

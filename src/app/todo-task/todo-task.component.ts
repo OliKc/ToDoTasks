@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TasksService } from '../services/tasks.service';
+import { AngularFireList } from 'angularfire2/database';
+import { Task } from '../models/task';
 
 @Component({
   selector: 'app-todo-task',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoTaskComponent implements OnInit {
 
-  constructor() { }
+  tasks$: AngularFireList<Task> = null;
+
+  constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
+
+    this.tasks$ = this.tasksService.getTaskList();
   }
 
 }

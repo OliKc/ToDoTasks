@@ -1,5 +1,5 @@
 export interface Task {
-    name: string;
+    content: string;
     created: Date;
     deadline?: Date;
 }
