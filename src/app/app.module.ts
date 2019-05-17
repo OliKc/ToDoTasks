@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment.prod';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     AppComponent,
     AddTaskComponent,
     DoneTaskComponent,
-    TodoTaskComponent
+    TodoTaskComponent,
+    SignupComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
