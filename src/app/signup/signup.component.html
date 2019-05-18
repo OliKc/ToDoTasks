@@ -1,4 +1,25 @@
 Pls login in
-<input placeholder="email" [(ngModel)]="user.email">
-<input placeholder="password" type="password" [(ngModel)]="user.password">
-<button (click)="login()">Log in</button>
+<input placeholder="email" [(ngModel)]="email">
+
+<section>
+    Do you have an account?
+    <mat-radio-group [(ngModel)]="labelPosition">
+        <mat-radio-button value="login">Yes,I have an account and my password is:</mat-radio-button>
+        <mat-radio-button value="signup">No, register me now</mat-radio-button>
+      </mat-radio-group>
+</section>
+
+<input placeholder="password" type="password" [(ngModel)]="password">
+
+<section>
+  <ng-container *ngIf="labelPosition==='login'; else newUser">
+    <button mat-raised-button color="primary" (click)="login()">Log in</button>
+  </ng-container>
+  
+  <ng-template #newUser>
+    <button mat-raised-button color="primary" (click)="signup()">Sign up</button>
+  </ng-template>
+</section>
+
+
+
