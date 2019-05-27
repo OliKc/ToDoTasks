@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task';
 
@@ -13,13 +13,20 @@ export class AddTaskComponent implements OnInit {
 
   constructor(private tasksService: TasksService) { }
 
+
   ngOnInit() {
+
+    this.tasksService.getTaskList();
   }
+
 
   add() {
     if (this.newTaskContent) {
-      const newTask: Task = ({content: this.newTaskContent, created: new Date()});
+      const newTask: Task = ({content: this.newTaskContent, created: Date.now()});
+      console.log(newTask);
       this.tasksService.add(newTask);
+
+      // clear task text
       this.newTaskContent = '';
       console.log(newTask);
     }
