@@ -3,30 +3,31 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Credentials } from '../models/user';
 import { Observable } from 'rxjs';
 import { User } from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  uid = sessionStorage.getItem('userUID');
   readonly authState$: Observable<User | null> = this.afAuth.authState;
 
-  constructor(private afAuth: AngularFireAuth) {  }
+  constructor(private afAuth: AngularFireAuth) { }
+//a = this.afAuth.auth.onAuthStateChanged(() => {});
 
-
-  login({email, password}: Credentials) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
-      userCredential => {
-        sessionStorage.setItem('userUID', userCredential.user.uid);
-    });
+  login({ email, password }: Credentials) {
+       return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
+        userCredential => {
+          sessionStorage.setItem('userUID', userCredential.user.uid);
+        }
+      );
   }
 
-  register({email, password}: Credentials) {
+  register({ email, password }: Credentials) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
       userCredential => {
         sessionStorage.setItem('userUID', userCredential.user.uid);
-    });
+      });
   }
 
   logout() {

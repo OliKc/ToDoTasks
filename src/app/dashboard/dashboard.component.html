@@ -1,3 +1,27 @@
-<p>
-  dashboard works!
-</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+
+    <button mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <span>Log out</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<app-add-task></app-add-task>
+<app-todo-task [tasks$]="tasks$"></app-todo-task>

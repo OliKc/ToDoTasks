@@ -11,10 +11,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { AddTaskComponent } from './add-task/add-task.component';
-import { DoneTaskComponent } from './done-task/done-task.component';
 import { TodoTaskComponent } from './todo-task/todo-task.component';
 import { SignupComponent } from './signup/signup.component';
 import { environment } from 'src/environments/environment.prod';
@@ -30,7 +31,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   declarations: [
     AppComponent,
     AddTaskComponent,
-    DoneTaskComponent,
     TodoTaskComponent,
     SignupComponent,
     DashboardComponent
@@ -45,7 +45,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserAnimationsModule,
     MatRadioModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [
     AuthService,

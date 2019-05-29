@@ -55,11 +55,10 @@ export class SignupComponent implements OnInit {
 
         } else if (err.code === 'auth/weak-password') {
           alert(err.message);
-          
+
         } else {
           alert(err.message);
         }
-        console.log(err);
       });
   }
 

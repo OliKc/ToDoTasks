@@ -3,30 +3,51 @@ import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-  tasks$: AngularFireList<Task> = null;
-  tasks: Array<Task> = [];
+  tasks: AngularFireList<Task> = null;
 
-  constructor(private db: AngularFireDatabase, private auth: AuthService) { }
+  constructor(
+    private db: AngularFireDatabase, private auth: AuthService) { }
+
 
   getTaskList(): AngularFireList<Task> {
-    if (!this.auth.user) {
+    const uid = sessionStorage.getItem('userUID');
+
+    if (!uid) {
+      console.log(`User: ${uid}`);
       return;
     }
-    this.tasks$ = this.db.list(`Tasks/${this.auth.user}`);
-    return this.tasks$;
+
+    // db connection
+    this.tasks = this.db.list(`tasks/${uid}`);
+    
+    console.log('task service', this.tasks);
+    return this.tasks;
   }
 
   add(task: Task) {
-    this.tasks$.push(task);
+
+    console.log(`!!!!!!!!!! ${this.tasks}`);
+    this.tasks.push(task).then(
+      key => console.log(`key: ${key}`)
+    )
+    .catch((err) => {
+      alert(err);
+    });
+    console.log(task);
   }
 
   remove(task: Task) {
+
+  }
+
+  update(task: Task) {
 
   }
 
