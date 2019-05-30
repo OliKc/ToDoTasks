@@ -3,7 +3,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Credentials } from '../models/user';
 import { Observable } from 'rxjs';
 import { User } from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,6 @@ export class AuthService {
   readonly authState$: Observable<User | null> = this.afAuth.authState;
 
   constructor(private afAuth: AngularFireAuth) { }
-//a = this.afAuth.auth.onAuthStateChanged(() => {});
 
   login({ email, password }: Credentials) {
        return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(

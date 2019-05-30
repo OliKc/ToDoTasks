@@ -26,7 +26,6 @@ export class AddTaskComponent implements OnInit {
 
       // clear task text
       this.newTaskContent = '';
-      console.log(newTask);
     }
   }
 

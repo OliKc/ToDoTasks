@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Task } from '../models/task';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,8 @@ import { Task } from '../models/task';
 })
 export class DashboardComponent implements OnInit {
 
-  tasks$: AngularFireList<Task>;
+  tasks$: Observable<Task[]>;
+  tasks: Task[];
 
   constructor(
     private router: Router,
@@ -21,7 +23,17 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tasks$ = this.tasksService.getTaskList();
+
+    console.log('dashboard init');
+
+    //this.tasks$ = this.tasksService.getTasks();
+
+    this.tasksService.getTasks().subscribe(tasks => {
+      this.tasks = tasks;
+    });
+    console.log(this.tasks);
+
+    
   }
 
   logout() {

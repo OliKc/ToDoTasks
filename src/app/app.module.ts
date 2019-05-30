@@ -22,7 +22,8 @@ import { environment } from 'src/environments/environment.prod';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule} from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 
@@ -42,6 +43,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFirestoreModule,
     BrowserAnimationsModule,
     MatRadioModule,
     MatButtonModule,

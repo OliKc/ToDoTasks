@@ -1,8 +1,7 @@
 <p>
   todo-task works!
 </p>
-<ul>
-  <li *ngFor="let task of tasks$ | async">
-    {{ task }}
+<ul *ngFor="let task of tasks">
+  <li> {{task.content}}, {{task.id}}
   </li>
 </ul>
