@@ -13,19 +13,16 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth) { }
 
-  login({ email, password }: Credentials) {
-       return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
-        userCredential => {
-          sessionStorage.setItem('userUID', userCredential.user.uid);
-        }
-      );
+  async login({ email, password }: Credentials) {
+    const userCredential =
+    await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    sessionStorage.setItem('userUID', userCredential.user.uid);
   }
 
-  register({ email, password }: Credentials) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
-      userCredential => {
-        sessionStorage.setItem('userUID', userCredential.user.uid);
-      });
+  async register({ email, password }: Credentials) {
+    const userCredential =
+    await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    sessionStorage.setItem('userUID', userCredential.user.uid);
   }
 
   logout() {
