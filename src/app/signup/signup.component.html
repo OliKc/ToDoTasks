@@ -24,33 +24,33 @@
 
 <mat-card class="signup-card">
 
-  <h1 class="header" *ngIf="!newUser">SIGN UP</h1>
-  <h1 class="header" *ngIf="newUser">LOG IN</h1>
+  <h1 class="header" @slideInDown *ngIf="!newUser">SIGN UP</h1>
+  <h1 class="header" @slideInDown *ngIf="newUser">LOG IN</h1>
 
   <ng-template *ngIf="true">
   </ng-template>
   <ng-template *ngIf="!newUser">
   </ng-template>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field @bounceInLeft appearance="outline">
     <input matInput placeholder="email" [(ngModel)]="email">
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field @bounceInLeft appearance="outline">
     <input matInput placeholder="password" type="password" [(ngModel)]="password">
   </mat-form-field>
 
   <ng-container *ngIf="!newUser; else _login">
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="signup()">Sign up</button>
+      <button @bounceInRight mat-raised-button color="primary" (click)="signup()">Sign up</button>
     </mat-card-actions>
   </ng-container>
 
   <ng-template #_login>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="login()">Log in</button>
+      <button @bounceInRight mat-raised-button color="primary" (click)="login()">Log in</button>
     </mat-card-actions>
   </ng-template>
 
-  <h5 class="footer" *ngIf="!newUser">Already got an account? <a (click)="newUser = true">Log in</a> now!</h5>
+  <h5 class="footer" @slideInUp *ngIf="!newUser">Already got an account? <a (click)="newUser = true">Log in</a> now!</h5>
 
 </mat-card>
