@@ -9,19 +9,19 @@
     @media (min-width: 1200px)
         grid-template-columns: repeat(auto-fit, 240px)
 
-    @media (max-width: 400px)
+    @media (max-width: 500px)
         grid-template-columns: repeat(auto-fit, 100px)
 
     @media (max-width: 599px)
         min-height: calc(100vh - 56px)
 
-.wrapper
+.item-wrapper
     height: 20vw
 
     @media (min-width: 1200px)
         height: 240px
 
-    @media (max-width: 400px)
+    @media (max-width: 500px)
         height: 100px
 
 .item
@@ -30,6 +30,14 @@
     margin: 10%
     box-sizing: border-box
     background-color: #F5F5F6
+    cursor: pointer
+
+.vertical-center
+  height: 100%
+  display: flex
+  align-items: center
+
+.text-content
     overflow: hidden
     text-overflow: ellipsis
 

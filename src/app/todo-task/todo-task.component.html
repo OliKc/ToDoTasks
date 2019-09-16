@@ -1,7 +1,15 @@
-<p>
-  todo-task works!
-</p>
-<ul *ngFor="let task of tasks">
-  <li> {{task.content}}, {{task.id}}
-  </li>
-</ul>
+<main class="container">
+    <ng-container *ngFor="let task of tasks">
+        <div class="item-wrapper">
+          <mat-card class="item" (click)="editItem($event, task)">
+            <div class="vertical-center">
+              <div class="text-content">
+                  {{task.content}}
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </ng-container>
+
+    <app-edit-task *ngIf="editTaskVisible" [task]="editedTask" (close)="editTaskVisible = false"></app-edit-task>
+</main>
