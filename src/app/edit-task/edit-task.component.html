@@ -1,0 +1,20 @@
+<mat-card class="edit-card">
+
+        <mat-card-actions>
+            <button mat-icon-button class="del-btn" (click)="deleteTask($event, task)">
+                <mat-icon>delete</mat-icon>
+            </button>
+
+            <button mat-icon-button class="save-btn" (click)="updateTask($event, task)">
+                <mat-icon>check</mat-icon>
+            </button>
+        </mat-card-actions>
+
+        <mat-card-content>
+            <mat-form-field>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMaxRows="7"
+                    name="content" [(ngModel)]="task.content"></textarea>
+            </mat-form-field>
+        </mat-card-content>
+
+</mat-card>
