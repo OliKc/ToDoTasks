@@ -24,33 +24,36 @@
 
 <mat-card class="signup-card">
 
-  <h1 class="header" @slideInDown *ngIf="!newUser">SIGN UP</h1>
-  <h1 class="header" @slideInDown *ngIf="newUser">LOG IN</h1>
+  <h1 class="header" @slideInDown *ngIf="newUser">SIGN UP</h1>
+  <h1 class="header" @slideInDown *ngIf="!newUser">LOG IN</h1>
 
-  <ng-template *ngIf="true">
-  </ng-template>
-  <ng-template *ngIf="!newUser">
-  </ng-template>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)">
 
-  <mat-form-field @bounceInLeft appearance="outline">
-    <input matInput placeholder="email" [(ngModel)]="email">
-  </mat-form-field>
-  <mat-form-field @bounceInLeft appearance="outline">
-    <input matInput placeholder="password" type="password" [(ngModel)]="password">
-  </mat-form-field>
+    <mat-form-field #formField @bounceInLeft appearance="outline">
+      <input matInput placeholder="email" formControlName="email">
+    </mat-form-field>
 
-  <ng-container *ngIf="!newUser; else _login">
-    <mat-card-actions>
-      <button @bounceInRight mat-raised-button color="primary" (click)="signup()">Sign up</button>
-    </mat-card-actions>
-  </ng-container>
+    <mat-form-field #formField @bounceInLeft appearance="outline">
+      <input matInput placeholder="password" type="password" formControlName="password">
+    </mat-form-field>
 
-  <ng-template #_login>
-    <mat-card-actions>
-      <button @bounceInRight mat-raised-button color="primary" (click)="login()">Log in</button>
-    </mat-card-actions>
-  </ng-template>
+    <ng-container *ngIf="newUser; else login">
+      <mat-card-actions>
+        <button type="submit" [disabled]="signupForm.invalid" @bounceInRight mat-raised-button color="primary">Sign
+          up</button>
+      </mat-card-actions>
+    </ng-container>
 
-  <h5 class="footer" @slideInUp *ngIf="!newUser">Already got an account? <a (click)="newUser = true">Log in</a> now!</h5>
+    <ng-template #login>
+      <mat-card-actions>
+        <button type="submit" [disabled]="signupForm.invalid" @bounceInRight mat-raised-button color="primary">Log
+          in</button>
+      </mat-card-actions>
+    </ng-template>
+
+  </form>
+
+  <h5 class="footer" @slideInUp *ngIf="newUser">Already got an account? <a (click)="newUser = false">Log in</a> now!
+  </h5>
 
 </mat-card>

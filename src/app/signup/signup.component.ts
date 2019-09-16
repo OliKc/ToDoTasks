@@ -1,8 +1,12 @@
 import { AuthService } from '../services/auth.service';
-import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { Credentials } from '../models/user';
 import { Router } from '@angular/router';
 import { trigger, state, transition, animate, style } from '@angular/animations';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+
+import {ErrorStateMatcher} from '@angular/material/core';
+
 
 @Component({
   selector: 'app-signup',
@@ -35,28 +39,55 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
     ])
   ]
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, AfterViewInit {
 
-  user: Credentials;
-  email: string;
-  password: string;
+  @ViewChildren('formField', {read: ElementRef}) formFields: QueryList<ElementRef>;
 
-  //labelPosition: string;
+  signupForm: FormGroup;
+  newUser = true;
 
-  newUser = false;
-
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
-    //this.labelPosition = 'login';
+    this.signupForm = this.formBuilder.group({
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6)
+      ]]
+    });
   }
 
-  toLoginTransition() {
+  ngAfterViewInit() {
+    // overriding material dynamic elements styles
+    let wrapper: any;
+    let infix: any;
+    this.formFields.forEach(formField => {
+      wrapper = formField.nativeElement.querySelector('.mat-form-field-wrapper');
+      infix = formField.nativeElement.querySelector('.mat-form-field-infix');
+
+      wrapper.style.padding = 0;
+      infix.style.cssText = 'padding: 0.5em 0 0.5em 0; border-top: 0.3em solid transparent';
+    });
   }
 
-  login(): void {
-    this.user = ({ email: this.email, password: this.password });
-    this.auth.login(this.user)
+  onSubmit(form: FormGroup) {
+    if (this.newUser) {
+      this.signup(form.value as Credentials);
+    } else {
+      this.login(form.value as Credentials);
+    }
+  }
+
+  login(userCredentials: Credentials): void {
+    this.auth.login(userCredentials)
       .then(() => this.router.navigate(['/dashboard']))
       .catch(err => {
         if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
@@ -74,9 +105,8 @@ export class SignupComponent implements OnInit {
       });
   }
 
-  signup(): void {
-    this.user = ({ email: this.email, password: this.password });
-    this.auth.register(this.user)
+  signup(userCredentials: Credentials): void {
+    this.auth.register(userCredentials)
       .then(() => this.router.navigate(['/dashboard']))
       .catch(err => {
         if (err.code === 'auth/invalid-email') {
