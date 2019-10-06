@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task';
-import { map, first } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo-task',
@@ -13,6 +11,8 @@ export class TodoTaskComponent implements OnInit {
 
   @Input()
   tasks: Task[];
+  editTaskVisible = false;
+  editedTask: Task;
 
 
   constructor(private tasksService: TasksService) { }
@@ -21,4 +21,8 @@ export class TodoTaskComponent implements OnInit {
     console.log('todo init', this.tasks);
   }
 
+  editItem(event, task: Task) {
+    this.editedTask = task;
+    this.editTaskVisible = true;
+  }
 }

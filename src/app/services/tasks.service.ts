@@ -2,11 +2,9 @@ import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
 
-
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
+import { map, refCount } from 'rxjs/operators';
+import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +28,8 @@ export class TasksService {
     }
 
     // map tasks collection from firestore
-    this.tasksCollection = this.afs.collection('users').doc(uid).collection('tasks');
+    this.tasksCollection = this.afs.collection('users').doc(uid).collection('tasks', ref =>
+      ref.orderBy('deadline'));
 
     // map tasks from firestore
     this.tasks = this.tasksCollection.snapshotChanges().pipe(
@@ -55,10 +54,23 @@ export class TasksService {
 
   remove(task: Task) {
 
+    // get user id
+    const uid = sessionStorage.getItem('userUID');
+
+    console.log(task);
+
+    //taskDoc: AngularFirestoreDocument<Task>;
+    // this.taskDoc = this.afs.doc(`users/${uid}/tasks/${task.id}`);
+    // this.taskDoc.delete();
+    this.tasksCollection.doc(task.id).delete();
   }
 
   update(task: Task) {
 
+    this.tasksCollection.doc(task.id).update({
+      content: task.content
+    });
+    console.log('service task update');
   }
 
   done(task: Task) {

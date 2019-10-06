@@ -10,15 +10,22 @@ import { TasksService } from '../services/tasks.service';
 export class EditTaskComponent implements OnInit {
 
   @Input() task: Task;
+  initTaskcontent: string;
   @Output() close: EventEmitter<any> = new EventEmitter();
 
   constructor(private tasksService: TasksService) { }
 
   ngOnInit() {
+    this.initTaskcontent = this.task.content;
+    console.log(this.task.content);
   }
 
   updateTask(event, task: Task) {
-    this.tasksService.update(task);
+
+    if (this.initTaskcontent !== this.task.content) {
+      this.tasksService.update(task);
+    }
+
     this.close.emit(null);
   }
 

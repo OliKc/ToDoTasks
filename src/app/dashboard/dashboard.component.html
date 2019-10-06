@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
 
-    <button mat-icon-button>
+    <button mat-icon-button (click)="newTaskVisible = true">
       <mat-icon>add</mat-icon>
     </button>
 
@@ -23,5 +23,7 @@
 </mat-toolbar>
 
 
-<app-add-task></app-add-task>
+<app-add-task *ngIf="newTaskVisible" (close)="newTaskVisible = false"></app-add-task>
+
+
 <app-todo-task [tasks]="tasks"></app-todo-task>

@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Output, EventEmitter } from '@angular/core';
 import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-add-task',
@@ -10,6 +11,8 @@ import { Task } from '../models/task';
 export class AddTaskComponent implements OnInit {
 
   newTaskContent: string;
+  deadline: number;
+  @Output() close: EventEmitter<any> = new EventEmitter();
 
   constructor(private tasksService: TasksService) { }
 
@@ -17,16 +20,22 @@ export class AddTaskComponent implements OnInit {
   ngOnInit() {
   }
 
+  saveTask(form) {
+    if (form.value.content) {
 
-  add() {
-    if (this.newTaskContent) {
-      const newTask: Task = ({content: this.newTaskContent, created: Date.now()});
-      console.log(newTask);
+      // when no deadine is specified
+      const maxDate = 8640000000000000;
+
+      const newTask: Task = ({ content: form.value.content, created: Date.now(), deadline: this.deadline || maxDate });
       this.tasksService.add(newTask);
-
-      // clear task text
-      this.newTaskContent = '';
     }
+
+    // close new task
+    this.close.emit(null);
+  }
+
+  deleteTask() {
+    this.close.emit(null);
   }
 
 }

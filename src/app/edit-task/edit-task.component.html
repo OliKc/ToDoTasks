@@ -1,11 +1,11 @@
 <mat-card class="edit-card">
 
         <mat-card-actions>
-            <button mat-icon-button class="del-btn" (click)="deleteTask($event, task)">
+            <button mat-icon-button #delBtn class="del-btn" (click)="deleteTask($event, task)">
                 <mat-icon>delete</mat-icon>
             </button>
 
-            <button mat-icon-button class="save-btn" (click)="updateTask($event, task)">
+            <button mat-icon-button #saveBtn class="save-btn" (click)="updateTask($event, task)">
                 <mat-icon>check</mat-icon>
             </button>
         </mat-card-actions>

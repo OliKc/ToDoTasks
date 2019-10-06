@@ -1,4 +1,3 @@
-import { AngularFireList } from 'angularfire2/database';
 import { TasksService } from './../services/tasks.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
   tasks$: Observable<Task[]>;
   tasks: Task[];
+  newTaskVisible = false;
 
   constructor(
     private router: Router,
@@ -33,7 +33,10 @@ export class DashboardComponent implements OnInit {
     });
     console.log(this.tasks);
 
-    
+  }
+
+  newTask() {
+    this.newTaskVisible = true;
   }
 
   logout() {
